@@ -21,9 +21,14 @@ function showPage(pageName) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Tıklanan alt menüyü açıp kapatan fonksiyon
 function toggleDropdown(id) {
   const dropdown = document.getElementById('dd-' + id) || document.getElementById(id);
   if (dropdown) {
+    // Diğer açık dropdown'ları kapat
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      if (menu !== dropdown) menu.classList.remove('open');
+    });
     dropdown.classList.toggle('open');
   }
 }
@@ -41,5 +46,14 @@ function closeMobileMenu() {
   const mobileMenu = document.getElementById('desktopMenu');
   if (mobileMenu) {
     mobileMenu.classList.remove('open');
+  }
+}
+
+// Sayfa dışına tıklanınca açık dropdown'ları kapat
+window.onclick = function(event) {
+  if (!event.target.matches('.nav-link') && !event.target.parentContext?.matches('.nav-link')) {
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.classList.remove('open');
+    });
   }
 }
